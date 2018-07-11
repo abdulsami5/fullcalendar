@@ -6,25 +6,7 @@
      <script src='node_modules/moment/min/moment.min.js'></script>
      <script src='node_modules/fullcalendar/dist/fullcalendar.js'></script>
    </head>
-   <script>
-     $(function() {
-       $('#calendar').fullCalendar({
-
-            header: { 
-              left:'prev,next,today',
-              center: 'title',
-              right: 'month,agendaWeek,agendaDay' 
-              }, // buttons for switching between views
-
-            selectable:true,
-            selectHElper:true,
-            editable:true,
-            eventLimit:true
-
-     })
-
-});
-   </script>
+   <script src='calendar.js'> </script>
    <body>
      <div id='calendar'>
        
