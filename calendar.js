@@ -1,5 +1,14 @@
-$(function() {
+var eventsArray = [];
+var s_date;
 
+class dayEvent {
+  constructor(s,title, description,location) {
+    this.start=s;
+    this.title = title;
+    this.description = description;
+    this.location=location;
+  }
+}
 
        $('#calendar').fullCalendar({
 
