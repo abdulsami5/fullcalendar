@@ -114,10 +114,9 @@ let getWeather = function(){
 
 
 function fetchWeather(position) {
-    alert( "Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude);
+    
   $.ajax({
-     url:"https://www.metaweather.com/api/location/search/?lattlong="+position.coords.latitude+","+position.coords.longitude,
+    url:"https://www.metaweather.com/api/location/search/?lattlong="+position.coords.latitude+","+position.coords.longitude,
       dataType: 'json', // Notice! JSONP <-- P (lowercase)
       success:function(json){
          // do stuff with json (in this case an array)
@@ -134,7 +133,11 @@ function fetchWeather(position) {
               success:function(json){
          // do stuff with json (in this case an array)
                 console.log(json);
-                
+                var mymodal = $('#weatherModal');
+      //mymodal.find('.modal-title').text("Event for " + date.format());
+                mymodal.modal('show');
+
+
 
               }, 
               error:function(){
