@@ -13,6 +13,8 @@ class dayEvent {
 
 
 $(function() {
+
+  eventsArray = JSON.parse(localStorage.getItem("events"));
   
   $('#calendar').fullCalendar({
 
@@ -22,6 +24,7 @@ $(function() {
       right: 'month,agendaWeek,agendaDay' 
     }, // buttons for switching between views
            
+
     events: eventsArray,
     selectable:true,
     selectHelper:true,
@@ -32,7 +35,26 @@ $(function() {
       mymodal.find('.modal-title').text("Event for " + date.format());
       mymodal.modal('show');
       s_date=date;
-    } 
+    },
+    eventClick: function(calEvent, jsEvent, view) {
+      var mymodal = $('#detailModal');
+      //mymodal.find('.modal-title').text("Event for " + date.format());
+      mymodal.modal('show');
+      mymodal.find('.modal-title').text(calEvent.title);
+
+      $("#details").empty();
+      $('#details').append("<p > <b>Location: </b> "+calEvent.location+"</p>");
+      $('#details').append("<p > <b>Detail: </b> "+calEvent.description+"</p>");
+      console.log(calEvent);
+    //alert('Event: ' + calEvent.title);
+    //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+    //alert('View: ' + view.name);
+
+
+    // change the border color just for fun
+    //$(this).css('border-color', 'red');
+
+  }
 
 
   })
@@ -67,7 +89,11 @@ let allEvents = function()
   let my_events = JSON.parse(localStorage.getItem("events"));
   $('#list').append("<ul id='newList'></ul>");
   for (event = 0; event < my_events.length; event++) {
-  $("#newList").append("<li>"+my_events[event].title + ":" + my_events[event].start+"</li>");
+    if (s_date.format()==my_events[event].start){
+
+      $("#newList").append("<li>"+my_events[event].title + ":" + my_events[event].start+"</li>");
+
+    }
 }
 
 }
