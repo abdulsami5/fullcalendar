@@ -134,7 +134,18 @@ function fetchWeather(position) {
          // do stuff with json (in this case an array)
                 console.log(json);
                 var mymodal = $('#weatherModal');
-      //mymodal.find('.modal-title').text("Event for " + date.format());
+                mymodal.find('.modal-title').text("Weather on " + s_date.format());
+                let img_url = '<img src='+'"https://www.metaweather.com/static/img/weather/'+json[0].weather_state_abbr
++'.svg"'+' style='+'"width: 50px; height: 50px; text-align: center;"'+'>'
+                console.log(img_url);
+                console.log($('#weather'));
+                $('#weather').empty();
+                $('#weather').append(img_url);
+                $('#weather').append("<p > <b>Status: </b> "+json[0].weather_state_name
+                +"</p>");
+                $('#weather').append("<p > <b>Maximum Temperature: </b> "+json[0].max_temp+"</p>");
+                $('#weather').append("<p > <b>Minimum Temperature: </b> "+json[0].min_temp+"</p>");
+                $('#weather').append("<p > <b>Humidity: </b> "+json[0].humidity+"</p>");
                 mymodal.modal('show');
 
 
