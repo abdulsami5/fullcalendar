@@ -1,24 +1,24 @@
 <!Doctype html >
- <html>
-   <head>
+  <html>
+  <head>
 
 
-      <script src='node_modules/jquery/dist/jquery.min.js'></script>
+    <script src='node_modules/jquery/dist/jquery.min.js'></script>
       <!-- Latest compiled and minified CSS -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <!-- jQuery library -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <!-- Latest compiled JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-     <link rel='stylesheet' href='node_modules/fullcalendar/dist/fullcalendar.css' />
-     <script src='node_modules/moment/min/moment.min.js'></script>
-     <script src='node_modules/fullcalendar/dist/fullcalendar.js'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='node_modules/fullcalendar/dist/fullcalendar.css' />
+    <script src='node_modules/moment/min/moment.min.js'></script>
+    <script src='node_modules/fullcalendar/dist/fullcalendar.js'></script>
    </head>
 
 
-   <script src='calendar.js'> </script>
+  <script src='calendar.js'> </script>
 
-   <body>
+  <body>
 
     <div class="container">
      
@@ -30,7 +30,7 @@
 
 
       <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+  <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -43,7 +43,7 @@
         
     <div class="panel panel-default">
     <div class="panel-body" data-toggle="collapse" data-target="#AddEvent">Add event</div>
-     <div id="AddEvent" class="collapse out container-fluid" >
+    <div id="AddEvent" class="collapse out container-fluid" >
           
           <div class="form-group">
             <label  >Event title:</label>
@@ -59,29 +59,48 @@
           </div>
           <button type="button" class="btn btn-success" style="float: right;margin-bottom: 15px" onclick="addEvent();" data-dismiss="modal" data-toggle="collapse" data-target="#AddEvent">Add event</button>
     </div>
-      </div>
+    </div>
 
 
       <div class="panel panel-default">
-          <div class="panel-body" data-toggle="collapse" data-target="#ListEvents" onclick="allEvents();">list events</div>
-           <div id="ListEvents" class="collapse out container-fluid" >
-           <div id="list">
-             
+        <div class="panel-body" data-toggle="collapse" data-target="#ListEvents" onclick="allEvents();">list events</div>
+          <div id="ListEvents" class="collapse out container-fluid" >
+          <div id="list">
 
-           </div>
-           </div>
+          </div>
+          </div>
 
       </div>
-
-
-
-
 
       <div class="panel panel-default">
-    <div class="panel-body">Add event</div>
+        <div class="panel-body">Add event</div>
       </div>
 
 
+      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+  </div>
+  </div>
+
+
+<!-- Modal -->
+<div id="detailModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">Modal Header</h2>
+      </div>
+      <div class="modal-body">
+        <div id="details">
+
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -91,5 +110,6 @@
   </div>
 </div>
 
-   </body>
- </html>
+
+  </body>
+  </html>
