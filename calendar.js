@@ -14,8 +14,9 @@ class dayEvent {
 
 $(function() {
 
-  eventsArray = JSON.parse(localStorage.getItem("events"));
-  
+  if(JSON.parse(localStorage.getItem("events"))){
+    eventsArray = JSON.parse(localStorage.getItem("events"));
+  }
   $('#calendar').fullCalendar({
 
     header: { 
@@ -35,6 +36,7 @@ $(function() {
       mymodal.find('.modal-title').text("Event for " + date.format());
       mymodal.modal('show');
       s_date=date;
+   
     },
     eventClick: function(calEvent, jsEvent, view) {
       var mymodal = $('#detailModal');
@@ -96,5 +98,74 @@ let allEvents = function()
     }
 }
 
+}
+
+
+let getWeather = function(){
+
+   if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(fetchWeather, showError);
+    } else { 
+      alert("Geolocation is not supported by this browser.");
+    }
+
+
+}
+
+
+function fetchWeather(position) {
+    alert( "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude);
+  $.ajax({
+     url:"https://www.metaweather.com/api/location/search/?lattlong="+position.coords.latitude+","+position.coords.longitude,
+      dataType: 'json', // Notice! JSONP <-- P (lowercase)
+      success:function(json){
+         // do stuff with json (in this case an array)
+        city=json[0].woeid;
+
+        let m = s_date._d.getMonth()+1;
+        let d = s_date._d.getFullYear()+"/"+m+"/"+s_date._d.getDate();
+//another ajax
+          $.ajax({
+
+
+            url:"https://www.metaweather.com/api/location/"+city+"/"+d,
+              dataType: 'json', // Notice! JSONP <-- P (lowercase)
+              success:function(json){
+         // do stuff with json (in this case an array)
+                console.log(json);
+                
+
+              }, 
+              error:function(){
+                alert("Error");
+              }      
+          });
+     },
+     error:function(){
+         alert("Error");
+     }      
+  });
+    //data is the JSON string
+  
+
+}
+
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+          alert("User denied the request for Geolocation.")
+            break;
+        case error.POSITION_UNAVAILABLE:
+          alert("Location information is unavailable.")
+            break;
+        case error.TIMEOUT:
+          alert("The request to get user location timed out.")
+            break;
+        case error.UNKNOWN_ERROR:
+          alert("An unknown error occurred.")
+            break;
+    }
 }
 
