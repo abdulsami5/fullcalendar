@@ -14,8 +14,9 @@ class dayEvent {
 
 $(function() {
 
-  if(JSON.parse(localStorage.getItem("events"))){
+  if($.isArray(JSON.parse(localStorage.getItem("events")))){
     eventsArray = JSON.parse(localStorage.getItem("events"));
+    console.log(eventsArray);
   }
   $('#calendar').fullCalendar({
 
@@ -31,6 +32,7 @@ $(function() {
     selectHelper:true,
     editable:true,
     eventLimit:true,
+    eventStartEditable:true,
     dayClick: function(date, jsEvent, view) {
       var mymodal = $('#myModal');
       mymodal.find('.modal-title').text("Event for " + date.format());
@@ -61,7 +63,7 @@ $(function() {
 
   })
 
-  var calendar = $('#calendar').fullCalendar('getCalendar');
+  
 
 });
 
@@ -72,15 +74,19 @@ addEvent = function(){
   var title = document.getElementById('e_title').value;
   var desc = document.getElementById('e_description').value;
   var loc = document.getElementById('e_location').value;
-  console.log(title);
-  console.log(desc);
-  console.log(loc);
-  eventsArray.push(new dayEvent(s_date.format(),title,desc,loc));
+  //console.log(title);
+  //console.log(desc);
+  //console.log(loc);
+  let obj= new dayEvent(s_date.format(),title,desc,loc);
+  eventsArray.push(obj);
   console.log(eventsArray);
-  $('#calendar').fullCalendar( 'renderEvent', new dayEvent(s_date.format(),title,desc,loc), true);
+  $('#calendar').fullCalendar( 'renderEvent', obj, true);
   document.getElementById('e_title').value='';
   document.getElementById('e_description').value='';
   document.getElementById('e_location').value='';
+  let clientEvents = $('#calendar').fullCalendar('clientEvents');
+  console.log(clientEvents);
+  clientEvents=JSON.decycle(clientEvents);
   localStorage.setItem("events", JSON.stringify(eventsArray));
 }
 
@@ -96,7 +102,11 @@ let allEvents = function()
       $("#newList").append("<li>"+my_events[event].title + ":" + my_events[event].start+"</li>");
 
     }
+
 }
+  let clientEvents = $('#calendar').fullCalendar('clientEvents');
+  clientEvents=JSON.decycle(clientEvents);
+  console.log(clientEvents);
 
 }
 
@@ -131,7 +141,6 @@ function fetchWeather(position) {
             url:"https://www.metaweather.com/api/location/"+city+"/"+d,
               dataType: 'json', // Notice! JSONP <-- P (lowercase)
               success:function(json){
-         // do stuff with json (in this case an array)
                 console.log(json);
                 var mymodal = $('#weatherModal');
                 mymodal.find('.modal-title').text("Weather on " + s_date.format());
@@ -182,4 +191,12 @@ function showError(error) {
             break;
     }
 }
+
+$(window).on("unload", function(e) {
+  let clientEvents = $('#calendar').fullCalendar('clientEvents');
+  console.log(clientEvents);
+  clientEvents=JSON.decycle(clientEvents);
+  localStorage.setItem("events", JSON.stringify(eventsArray));
+   
+});
 
